@@ -1,40 +1,55 @@
-﻿@model IEnumerable<MovCat.Models.Movie>
-@{
-    Layout = "_Layout";
-    ViewBag.Title = "Мои фильмы";
-}
+﻿@model MoviesListViewModel;
 
-<table class="table table-striped border-secondary">
-    <thead class="thead-dark">
-        <tr class="row">
-            <th class="col-2">Название</th>
-            <th class="col-7">Описание</th>
-            <th class="col-3"></th>
-        </tr>
-    </thead>
-    @foreach (var item in Model)
-    {
-        <tbody>
-            <tr class="row">
-                <td class="col-2">@item.Name</td>
-                <td class="col-7">@item.Description</td>
-                <td class="col-3">
-                    <div class="row">
-                        <div class="col-10"><img src="@item.FilePath" class="col-10" /></div>
-                        <div>
-                            <a asp-action="Edit" class="btn btn-primary mb-1" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i> </a>
-                            <form asp-action="Delete" method="post">
-                                <input type="hidden" name="id" value="@item.Id" />
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
+ @*IEnumerable<MovCat.Models.Movie>*@
+    @{
+        Layout = "_Layout";
+        ViewBag.Title = "Мои фильмы";
     }
-</table>
 
-<div class="text-center">
-    <a asp-action="Create" asp-controller="User" class="btn btn-success"><i class="fas fa-plus"></i> Добавить</a>
-</div>
+    <table class="table table-striped border-secondary">
+        <thead class="thead-dark">
+            <tr class="row">
+                <th class="col-2">Название</th>
+                <th class="col-7">Описание</th>
+                <th class="col-3"></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Movies)
+        {
+            <tbody>
+                <tr class="row">
+                    <td class="col-2">@item.Name</td>
+                    <td class="col-7">@item.Description</td>
+                    <td class="col-3">
+                        <div class="row">
+                            <div class="col-10"><img src="@item.FilePath" class="col-10" /></div>
+                            <div>
+                                <a asp-action="Edit" class="btn btn-primary mb-1" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i> </a>
+                                <form asp-action="Delete" method="post">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+    @if (Model.PagingInfo.TotalPages > 1)
+    {
+        <nav aria-label="Page navigation example">
+            <ul class="pagination  pagination-md">
+                @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+                {
+                    <li class="page-item">
+                        <a class="page-link bg-secondary text-white" href="?moviePage=@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+    else { }
+    <div class="text-center">
+        <a asp-action="Create" asp-controller="User" class="btn btn-success"><i class="fas fa-plus"></i> Добавить</a>
+    </div>

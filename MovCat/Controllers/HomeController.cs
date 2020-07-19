@@ -8,7 +8,7 @@ namespace MovCat.Controllers
     public class HomeController : Controller
     {
         MovieContext db;
-        public int PageSize = 8;
+        public int PageSize = 4;
         public HomeController(MovieContext context)
         {
             db = context;

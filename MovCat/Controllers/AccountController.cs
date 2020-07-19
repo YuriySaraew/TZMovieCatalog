@@ -62,12 +62,12 @@ namespace MovCat.Controllers
             if (ModelState.IsValid)
             {
                 AppUser user = await _userManager.FindByNameAsync(model.Login);
-                if(user!=null)
+                if (user != null)
                 {
-                    
+
                     await _signInManager.SignOutAsync();
                     Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
-                    if(result.Succeeded)
+                    if (result.Succeeded)
                     {
                         return Redirect(returnUrl ?? "/");
                     }
@@ -81,10 +81,10 @@ namespace MovCat.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            
+
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }
-    
+
 }

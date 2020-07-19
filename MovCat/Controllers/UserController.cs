@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovCat.Models;
+using MovCat.ViewModels;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,7 @@ namespace MovCat.Controllers
         MovieContext db;
         UserManager<AppUser> _userManager;
         IWebHostEnvironment _appEnvironment;
+        public int PageSize = 3;
 
         public UserController(MovieContext context, IWebHostEnvironment appEnvironment, UserManager<AppUser> userManager)
         {
@@ -27,12 +29,17 @@ namespace MovCat.Controllers
         }
 
         //INDEX
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int moviePage = 1)
         {
             ClaimsPrincipal _currentUser = this.User;
             MovieUser movUser = await db.MovieUsers.FirstOrDefaultAsync(p => p.Login == _currentUser.Identity.Name);
             var movies = db.Movies.Where(p => p.userID == movUser.Id).ToList();
-            return View(movies);
+            return View(new MoviesListViewModel
+            {
+                Movies = movies.OrderBy(p => p.Name).Skip((moviePage - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo { CurrentPage = moviePage, ItemsPerPage = PageSize, TotalItems = movies.Count() }
+            });
+            //return View(movies);
         }
 
         //EDIT
