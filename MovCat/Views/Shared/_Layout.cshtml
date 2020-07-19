@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/bf4385d44c.js" crossorigin="anonymous"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark justify-content-between" role="navigation">
+        <div class="row align-items-center">
+            <div class="navbar-brand text-light ml-3"><h1><i class="fas fa-film"></i> Cinema Catalog </h1></div>
+            <div class="form-inline my-2 my-lg-0 float-right">
+                <div class="collapse navbar-collapse justify-content-end" id="nav-content">
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="Index" class="nav-link text-white" style="text-decoration: none">Каталог </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="User" asp-action="Index" class="nav-link text-white" style="text-decoration: none">Мои фильмы </a>
+                            </li>
+
+
+                            @*<a class="btn badge-danger" type="submit" asp-controller="Account" asp-action="Logout"> Выход</a>*@
+                        }
+                        else
+                        {
+                            <li>
+                                <div class="form">
+                                    <a class="btn badge-secondary" asp-controller="Account" asp-action="Login"><i class="fas fa-door-open"></i> Вход</a>
+                                    <a class="btn badge-secondary" asp-controller="Account" asp-action="Register"><i class="fas fa-edit"></i> Регистрация</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form class="form-inline float-right" method="post" asp-controller="Account" asp-action="Logout">
+                <button type="submit" class="btn btn-danger btn" style="text-decoration: none"><i class="fas fa-sign-out-alt"></i> Выход </button>
+            </form>
+        }
+    </nav>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+
+</body>
+</html>

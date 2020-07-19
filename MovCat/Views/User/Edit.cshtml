@@ -1,0 +1,44 @@
+﻿@model MovCat.Models.Movie;
+@{
+    Layout = "_Layout";
+}
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <div>Название</div>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <div>Год выпуска</div>
+                    <input asp-for="CreatedYear" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <div>Режисер</div>
+                    <input asp-for="Director" class="form-control" />
+                </div>
+                <img src="@Model.FilePath" class="img-fluid col-10" />
+                    <input type="hidden" name="id" value="@Model.Id" class="hidden" />
+                    <input type="file" name="uploadedFile" /><br>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <div>Описание</div>
+                    <textarea style="height:500px"  asp-for="Description" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+
+        
+        <input asp-for="userID" type="hidden" class="hidden" />
+
+        <div class="text-center mt-3">
+            <button class="btn btn-success" type="submit"><i class="fas fa-save"></i> Сохранить</button>
+            <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-circle-left"></i> Назад</a>
+        </div>
+    </form>
+

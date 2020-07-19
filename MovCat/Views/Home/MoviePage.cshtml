@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "_Layout";
+    ViewBag.Title = Model.Name;
+}
+
+<div class="h1">@Model.Name</div>
+<div class="row">
+    <div class="col-8">
+        @Model.Description <br />
+        (Режисер: @Model.Director, Год выхода: @Model.CreatedYear)<br />
+        <a asp-action="Index" class="btn btn-secondary btn-sm mt-2"><i class="fas fa-arrow-circle-left"></i> В каталог</a>
+    </div>
+    <div class="col-4"><img src="@Model.FilePath" class="col-12" /></div>
+
+</div>
+

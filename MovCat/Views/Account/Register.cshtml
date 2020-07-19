@@ -1,0 +1,29 @@
+﻿@model MovCat.ViewModels.RegisterViewModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Регистрация";
+}
+<h2>Регистрация нового пользователя</h2>
+<form method="post" asp-controller="Account" asp-action="Register">
+
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <div>Логин</div>
+        <input type="text" asp-for="Login" name="Login" />
+    </div>
+
+    <div class="form-group">
+        <div>Email</div>
+        <input type="text" asp-for="Email" name="Email" />
+    </div>
+
+    <div class="form-group">
+        <div>Пароль</div>
+        <input type="text" asp-for="Password" name="Password" />
+    </div>
+
+    <button class="btn btn-success" type="submit"><i class="fas fa-check-circle"></i> Регистрация</button>
+
+</form>
+
